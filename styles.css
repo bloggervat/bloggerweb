@@ -450,3 +450,20 @@ html, body {
         transition: none;
     }
 }
+
+/* Базовые стили для мобильных устройств */
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 0 15px;
+  }
+  
+  .navigation {
+    flex-direction: column;
+  }
+  
+  .image {
+    max-width: 100%;
+    height: auto;
+  }
+}

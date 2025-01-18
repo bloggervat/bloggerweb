@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Владивосток - Текущее время</title>
+  <style>
+      /* Базовые стили */
+      body {
+          margin: 0;
+          padding: 0;
+          min-height: 100vh;
+          background: linear-gradient(135deg, #1a2a3a, #2c3e50);
+          font-family: 'Press Start 2P', cursive;
+          color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+      }
+
+      .container {
+          text-align: center;
+          padding: 20px;
+          background: rgba(44, 62, 80, 0.8);
+          border-radius: 10px;
+          border: 2px solid rgba(74, 158, 255, 0.3);
+          width: 90%;
+          max-width: 600px;
+          position: relative;
+      }
+
+      h1 {
+          font-size: 32px;
+          margin-bottom: 20px;
+      }
+
+      .time {
+          font-size: 24px;
+          margin: 20px 0;
+          transition: color 0.5s;
+      }
+
+      .explosion {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 200px;
+          height: 200px;
+          background: radial-gradient(circle, rgba(255,0,0,0.7), rgba(255,255,255,0) 70%);
+          border-radius: 50%;
+          transform: translate(-50%, -50%) scale(0);
+          animation: explode 1s forwards;
+          display: none;
+      }
+
+      @keyframes explode {
+          0% { transform: translate(-50%, -50%) scale(0); }
+          50% { transform: translate(-50%, -50%) scale(1.5); }
+          100% { transform: translate(-50%, -50%) scale(0); }
+      }
+
+      .video {
+          width: 100%;
+          border-radius: 10px;
+          margin: 10px 0;
+      }
+
+      .side-videos {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          margin: 10px 0;
+      }
+
+      .side-video {
+          width: 48%;
+      }
+
+      /* Оптимизация для мобильных устройств */
+      @media (max-width: 600px) {
+          h1 {
+              font-size: 24px;
+          }
+
+          .time {
+              font-size: 20px;
+          }
+
+          .side-video {
+              width: 100%;
+              margin-bottom: 10px;
+          }
+
+          .side-videos {
+              flex-direction: column;
+          }
+      }
+  </style>
+</head>
+<body>
+  <div class="container">
+      <header>
+          <h1>Время во Владивостоке</h1>
+      </header>
+      <main>
+          <div id="timeContainer" class="time"></div>
+          <div class="explosion" id="explosionEffect"></div>
+      </main>
+      <div class="side-videos">
+          <iframe class="side-video" src="https://www.youtube.com/embed/n_Dv4JMiwK8?autoplay=1&mute=1&controls=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe class="side-video" src="https://www.youtube.com/embed/KgZsYhNCK8E?autoplay=1&mute=1&controls=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <iframe class="video" src="https://www.youtube.com/embed/HDp6r4dCedw?autoplay=1&mute=1&controls=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <iframe class="video" src="https://www.youtube.com/embed/rLHEedCjiOU?autoplay=1&mute=1&controls=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+  <script>
+      const offset = 10; // Владивосток UTC+10
+      const targetTimes = [
+          "08:45",
+          "09:40",
+          "10:35",
+          "11:30",
+          "12:20",
+          "13:10",
+          "14:00",
+          "14:55",
+          "15:50",
+          "16:45",
+          "17:35",
+          "18:25",
+          "19:15"
+      ];
+
+      function updateTime() {
+          const container = document.getElementById('timeContainer');
+          const explosionEffect = document.getElementById('explosionEffect');
+          const utc = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
+          const cityTime = new Date(utc + (3600000 * offset));
+          const timeString = cityTime.toLocaleTimeString();
+          container.innerHTML = `Текущее время в Владивостоке: <span id="currentTime">${timeString}</span>`;
+
+          const currentTime = cityTime.toTimeString().slice(0, 5);
+          const currentSeconds = cityTime.getSeconds();
+
+          // Проверка на 10 секунд до целевого времени
+          for (let time of targetTimes) {
+              const [hours, minutes] = time.split(':');
+              const targetDate = new Date(cityTime);
+              targetDate.setHours(hours);
+              targetDate.setMinutes(minutes);
+              targetDate.setSeconds(0);
+
+              const currentTimeElement = document.getElementById('currentTime');
+
+              if (currentTime === time && currentSeconds === 0) {
+                  explosionEffect.style.display = 'block';
+                  explosionEffect.style.animation = 'none'; // Сброс анимации
+                  explosionEffect.offsetHeight; // Перезапуск анимации
+                  explosionEffect.style.animation = 'explode 1s forwards';
+
+                  // Эффект на самом времени
+                  currentTimeElement.style.color = 'red';
+                  currentTimeElement.style.fontSize = '30px';
+              }
+
+              const tenSecondsBefore = new Date(targetDate.getTime() - 10000);
+              if (cityTime >= tenSecondsBefore && cityTime < targetDate) {
+                  container.style.color = 'red'; // Мигаем красным
+              } else {
+                  container.style.color = 'white'; // Возвращаем цвет
+              }
+          }
+      }
+
+      setInterval(updateTime, 1000);
+      updateTime();
+  </script>
+</body>
+</html>

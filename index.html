@@ -1,197 +1,214 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloggervat web</title>
-    <link rel="icon" type="image/png" href="resized.png">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: 'Press Start 2P', cursive;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; /* Запрет горизонтальной прокрутки */
-        }
-
-        .clock-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 24px; /* Размер иконки */
-        }
-
-        .profile-container {
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        .sidebar {
-            flex: 1;
-            max-width: 300px; /* Ограничение ширины боковой панели */
-            margin-right: 20px;
-        }
-
-        .posts-section {
-            flex: 2;
-            margin: 20px 0;
-        }
-
-        .right-section {
-            flex: 1;
-            max-width: 300px; /* Ограничение ширины правой секции */
-        }
-
-        .post {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .profile-container {
-                flex-direction: column;
-            }
-
-            .sidebar, .right-section {
-                max-width: 100%; /* Полная ширина на мобильных устройствах */
-                margin-right: 0;
-            }
-
-            .posts-section {
-                margin: 0;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bloggervat</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #1e1e2f, #151520);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    /* Лоадер */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #151520;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3em;
+      z-index: 999;
+    }
+    #loader span {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    #content {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 420px;
+    }
+    /* Баннер */
+    .banner {
+      width: 100%;
+      height: 120px;
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
+    }
+    .banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Карточка */
+    .card {
+      background: #2b2b3d;
+      border-radius: 0 0 12px 12px;
+      padding: 20px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .time-box {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      text-align: right;
+    }
+    .time-label {
+      font-size: 0.7em;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 2px;
+    }
+    .time {
+      font-size: 0.9em;
+      color: rgba(255,255,255,0.6);
+    }
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 4px solid #2b2b3d;
+      margin-top: -40px;
+    }
+    .username {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin-top: 10px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .username:hover {
+      color: #aaa;
+    }
+    .tag {
+      font-size: 0.9em;
+      color: #aaa;
+      text-align: center;
+    }
+    .section {
+      margin-top: 20px;
+    }
+    .section h3 {
+      font-size: 1em;
+      color: #bbb;
+      margin-bottom: 8px;
+    }
+    .section p {
+      margin: 5px 0;
+      color: #ddd;
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .link-btn {
+      background: #444;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      font-size: 0.9em;
+      transition: 0.2s;
+    }
+    .link-btn:hover {
+      background: #666;
+    }
+    /* Адаптив */
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      .card {
+        padding: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <button class="clock-button" onclick="window.location.href='time.html'">
-        🕒 <!-- Иконка часов -->
-    </button>
-
-    <div class="rain" id="rain"></div>
-    
-    <div class="profile-container">
-        <div class="sidebar">
-            <img src="avatar.jpg" class="avatar" alt="Профиль">
-            <div class="username">Bloggervat</div>
-            <div class="status"><span class="status-dot"></span>Скучает по праздникам</div>
-            
-            <div class="info">
-                <div class="info-item">👩‍💻 Чудо программист</div>
-                <div class="info-item">📍 Город: Владивосток</div>
-                <div class="info-item">🎂 Возраст: 16 лет</div>
-                <div class="info-item skills">
-                    💻 Языки:
-                    <div class="skill-icons">
-                        <div class="skill">
-                            <div class="pixel-icon python"></div>
-                            Python
-                        </div>
-                        <div class="skill">
-                            <div class="pixel-icon javascript"></div>
-                            JavaScript
-                        </div>
-                        <div class="skill">
-                            <div class="pixel-icon html-css"></div>
-                            HTML CSS
-                        </div>
-                        <div class="skill">
-                            <div class="pixel-icon php"></div>
-                            PHP
-                        </div>
-                        <div class="skill">
-                            <div class="pixel-icon sql"></div>
-                            SQL
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="posts-section">
-            <div class="post">
-                <div class="post-header">
-                    <div class="post-date">14 Декабря 2024</div>
-                </div>
-                <div class="post-content">
-                    <h3>Еще один пост</h3>
-                    <p>Тест поста.</p>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="post-header">
-                    <div class="post-date">14 Декабря 2024</div>
-                </div>
-                <div class="post-content">
-                    <h3>Привет</h3>
-                    <p>Запуск сайта, просто по приколу</p>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="post-header">
-                    <div class="post-date">15 Января 2025</div>
-                </div>
-                <div class="post-content">
-                    <h3>Часики</h3>
-                    <p>Добавил часики с владивосточным временем. Школьникам зайдет:) (скоро добавлю и остальные регионы).</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="right-section">
-            <div class="links-section">
-                <h2 class="links-title">Мои ссылки</h2>
-                
-                <a href="https://github.com/bloggervat" class="social-link" target="_blank">
-                    <div class="pixel-icon github"></div>
-                    <span>GitHub</span>
-                </a>
-                
-                <a href="https://t.me/bloggervatk" class="social-link" target="_blank">
-                    <div class="pixel-icon telegram"></div>
-                    <span>Telegram</span>
-                </a>
-            </div>
-
-            <div class="pc-specs">
-                <h2 class="specs-title">Мой ПК</h2>
-                <div class="spec-item">
-                    <span class="spec-label">CPU:</span>
-                    <span class="spec-value">Intel Core i5 10400F</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">GPU:</span>
-                    <span class="spec-value">AMD Radeon RX 6600</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">RAM:</span>
-                    <span class="spec-value">16GB DDR4</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">SSD:</span>
-                    <span class="spec-value">SPCC Solid State Disk 512GB</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">HDD:</span>
-                    <span class="spec-value">TOSHIBA MQ01ABF050 512GB</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">MB:</span>
-                    <span class="spec-value">Asrock LGA 1200 B560M</span>
-                </div>
-            </div>
-        </div>
+  <div id="loader"><span>🙂</span></div>
+  <div id="content">
+    <div class="banner">
+      <img src="banner.jpg" alt="Баннер">
     </div>
 
-    <script src="script.js"></script>
+    <div class="card">
+      <div class="time-box">
+        <div class="time-label">Моё время:</div>
+        <div class="time" id="time"></div>
+      </div>
+
+      <div style="text-align:center;">
+        <img src="avatar.jpg" alt="avatar" class="avatar">
+      </div>
+      <div class="username" onclick="copyUsername()">bloggervat</div>
+      <div class="tag">Dev 💻</div>
+
+      <div class="section">
+        <h3>Обо мне</h3>
+        <p>🖥 CachyOS and Debian 13 user</p>
+        <p>🪟 Skills: python, godot, php, html, css js(50/50)</p>
+        <p>🔥 17 years old</p>
+      </div>
+
+      <div class="section">
+        <h3>Интеграции</h3>
+        <div class="links">
+          <a href="https://github.com/bloggervat" target="_blank" class="link-btn">GitHub</a>
+          <a href="https://t.me/githubfinds" target="_blank" class="link-btn">Github Finds(TGChannel)</a>
+          <a href="https://bloggervat.ru" target="_blank" class="link-btn">Сайт</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const emojis = ["🤓", "🙂", "🤔"];
+    document.querySelector("#loader span").textContent =
+      emojis[Math.floor(Math.random() * emojis.length)];
+
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("content").style.display = "flex";
+      }, 1500);
+    };
+
+    function updateTime() {
+      let now = new Date();
+      let options = { timeZone: "Asia/Vladivostok", hour: "2-digit", minute: "2-digit", second: "2-digit" };
+      let timeString = new Intl.DateTimeFormat("ru-RU", options).format(now);
+      document.getElementById("time").textContent = timeString;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    function copyUsername() {
+      navigator.clipboard.writeText("bloggervatk").then(() => {
+        alert("Ник скопирован!");
+      });
+    }
+
+
+  </script>
 </body>
 </html>

@@ -157,7 +157,7 @@
         <img src="avatar3.jpg" alt="avatar" class="avatar">
       </div>
       <div class="username" onclick="copyUsername()">bloggervat</div>
-      <div class="tag">Linux User(1month) 💻</div>
+      <div class="tag" id="linux-time">Linux User(1month) 💻</div>
 
       <div class="section">
         <h3>Обо мне</h3>
@@ -204,7 +204,27 @@
       });
     }
 
+    // Функция для расчета времени с 21 августа
+    function calculateLinuxTime() {
+      const startDate = new Date('2025-08-21'); // Дата начала использования Linux
+      const currentDate = new Date();
+      
+      // Вычисляем разницу в миллисекундах
+      const diffTime = Math.abs(currentDate - startDate);
+      
+      // Переводим миллисекунды в дни, часы, минуты и секунды
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+      const diffSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
+      
+      let timeString = `Use Linux: ${diffDays} days`;
 
+      document.getElementById("linux-time").textContent = timeString + " 💻";
+    }
+    
+    calculateLinuxTime();
+    setInterval(calculateLinuxTime, 1000);
   </script>
 </body>
 </html>

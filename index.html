@@ -1,230 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bloggervat</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #1e1e2f, #151520);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    #loader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #151520;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 3em;
-      z-index: 999;
-    }
-    #loader span {
-      display: inline-block;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    #content {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 420px;
-    }
-    .banner {
-      width: 100%;
-      height: 120px;
-      border-radius: 10px 10px 0 0;
-      overflow: hidden;
-    }
-    .banner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .card {
-      background: #2b2b3d;
-      border-radius: 0 0 12px 12px;
-      padding: 20px;
-      width: 100%;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-      position: relative;
-    }
-    .time-box {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      text-align: right;
-    }
-    .time-label {
-      font-size: 0.7em;
-      color: rgba(255,255,255,0.3);
-      margin-bottom: 2px;
-    }
-    .time {
-      font-size: 0.9em;
-      color: rgba(255,255,255,0.6);
-    }
-    .avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 4px solid #2b2b3d;
-      margin-top: -40px;
-    }
-    .username {
-      font-size: 1.4em;
-      font-weight: bold;
-      margin-top: 10px;
-      cursor: pointer;
-      text-align: center;
-    }
-    .username:hover {
-      color: #aaa;
-    }
-    .tag {
-      font-size: 0.9em;
-      color: #aaa;
-      text-align: center;
-    }
-    .section {
-      margin-top: 20px;
-    }
-    .section h3 {
-      font-size: 1em;
-      color: #bbb;
-      margin-bottom: 8px;
-    }
-    .section p {
-      margin: 5px 0;
-      color: #ddd;
-    }
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .link-btn {
-      background: #444;
-      padding: 8px;
-      border-radius: 6px;
-      text-align: center;
-      text-decoration: none;
-      color: #fff;
-      font-size: 0.9em;
-      transition: 0.2s;
-    }
-    .link-btn:hover {
-      background: #666;
-    }
-    @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
-      .card {
-        padding: 15px;
-      }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111318">
+  <meta name="description" content="Егор — разработчик и пользователь Arch Linux. Личная страница-визитка.">
+  <title>Егор — личная страница</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="loader"><span>🙂</span></div>
-  <div id="content">
-    <div class="banner">
-      <img src="banner.jpg" alt="Баннер">
-    </div>
-
-    <div class="card">
-      <div class="time-box">
-        <div class="time-label">Моё время:</div>
-        <div class="time" id="time"></div>
+  <header class="topbar"><div class="wrap topinner"><a class="brand" href="#home">bloggeervat<span>@</span>pixel</a><nav aria-label="Навигация"><a href="#about">обо мне</a><a href="#projects">проекты</a></nav></div></header>
+  <main class="wrap" id="home">
+    <section class="window" aria-label="Окно профиля">
+      <div class="windowbar"><span>~/home/bloggeervat/about.txt</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="hero">
+        <div><div class="eyebrow">[ Bloggervat.fun ]</div><h1>Привет, я<br>Bloggervat<span class="cursor">_</span></h1>
+          <p class="intro">Егор, 18 лет реальный пацан <span class="city">из Владивостока</span>. Чудо программист и сис админ личных серверов. Иногда вайбкодю....</p>
+          <div class="chips"><span class="chip python">Python</span><span class="chip cpp">C++</span><span class="chip javascript">JavaScript</span><span class="chip node">Node.js</span><span class="chip php">PHP</span><span class="chip css">CSS</span><span class="chip html">HTML</span><span class="chip godot">Godot</span><span class="chip vibe">vibecoding</span></div>
+          <div class="socials" aria-label="Социальные сети">
+            <a class="social" href="https://www.youtube.com/@bloggervat4131" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>YouTube</a>
+            <a class="social" href="https://t.me/githubfinds" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.8 3.2 18.5 20c-.2 1.2-.9 1.5-1.9.9l-5.2-3.8-2.5 2.4c-.3.3-.5.5-1 .5l.4-5.3 9.7-8.8c.4-.4-.1-.6-.6-.2L5.4 13.2.3 11.6c-1.1-.3-1.1-1.1.2-1.6L20.4 2.4c.9-.3 1.7.2 1.4.8Z"/></svg>Telegram · GithubFinds</a>
+            <a class="social" href="https://www.tiktok.com/@bloggervatq?lang=az" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 6.3a5.7 5.7 0 0 1-3.5-4.7V1h-4.1v15.5a3.4 3.4 0 1 1-2.4-3.3v-4.2a7.6 7.6 0 1 0 6.5 7.5V8.6a9.7 9.7 0 0 0 5.7 1.8V6.3h-2.2Z"/></svg>TikTok</a>
+          </div>
+        </div>
+        <div class="pixel-art"><div class="video-frame"><video src="photo_2026-10-07_18-47-02.mp4" autoplay muted loop playsinline aria-label="Видео Егора"></video></div></div>
       </div>
-
-      <div style="text-align:center;">
-        <img src="avatar3.jpg" alt="avatar" class="avatar">
+    </section>
+    <section class="section" id="about"><h2 class="section-title">// статус системы</h2>
+      <div class="grid">
+        <article class="card"><div class="eyebrow">ОПЕРАЦИОННАЯ СИСТЕМА</div><span class="big">CachyOS</span><div class="value">Linux · AngelOS</div></article>
+        <article class="card"><div class="eyebrow">ВРЕМЯ В СИСТЕМЕ</div><span class="big" id="uptime">…</span><div class="value">На Arch Linux с 24 августа 2023</div></article>
+        <article class="card"><div class="eyebrow">LOCALTIME / UTC+10</div><span class="big" id="clock">--:--:--</span><div class="value">моё время · Владивосток</div></article>
       </div>
-      <div class="username" onclick="copyUsername()">bloggervat</div>
-      <div class="tag" id="linux-time">Linux User(1month) 💻</div>
-
-      <div class="section">
-        <h3>Обо мне</h3>
-        <p>🖥 CachyOS and Debian 13 user</p>
-        <p>🪟 Skills: python, godot, php, html, css, js(50/50)</p>
-        <p>🔥 17 years old</p>
-      </div>
-
-      <div class="section">
-        <h3>Интеграции</h3>
-        <div class="links">
-          <a href="https://github.com/bloggervat" target="_blank" class="link-btn">GitHub</a>
-          <a href="https://t.me/githubfinds" target="_blank" class="link-btn">Github Finds(TGChannel)</a>
-          <a href="https://bloggervat.ru" target="_blank" class="link-btn">Сайт</a>
+    </section>
+    <section class="section" id="laptop"><h2 class="section-title">// мой ноутбук</h2>
+      <div class="fetch" aria-label="Характеристики ноутбука по Fastfetch">
+        <div class="fetch-bar"><span>terminal — fastfetch</span><span>bloggervat@cachyos</span></div>
+        <div class="fetch-body">
+          <pre class="fetch-logo" aria-hidden="true">      .--.
+     |o_o |
+     |:_/ |
+    //   \\\\
+   (|     | )
+  /'\\_   _/`\\
+  \\___)=(___/</pre>
+          <div><div class="fetch-host">bloggervat@cachyos</div><div class="fetch-rule">------------------</div>
+            <div class="fetch-rows">
+              <div class="fetch-row"><span class="fetch-key">os ♡</span><span class="fetch-value">CachyOS</span></div>
+              <div class="fetch-row"><span class="fetch-key">kernel ♡</span><span class="fetch-value">7.2.9-2-cachyos</span></div>
+              <div class="fetch-row"><span class="fetch-key">wm ♡</span><span class="fetch-value">niri 26.04 (Wayland)</span></div>
+              <div class="fetch-row"><span class="fetch-key">cpu ♡</span><span class="fetch-value">Intel Core i5-14450HX</span></div>
+              <div class="fetch-row"><span class="fetch-key">gpu ♡</span><span class="fetch-value">GeForce RTX 5050 Max-Q / Mobile</span></div>
+              <div class="fetch-row"><span class="fetch-key">gpu ♡</span><span class="fetch-value">Intel Raptor Lake-S UHD Graphics</span></div>
+              <div class="fetch-row"><span class="fetch-key">ram ♡</span><span class="fetch-value">15.22 GiB</span></div>
+              <div class="fetch-row"><span class="fetch-key">disk ♡</span><span class="fetch-value">467.89 GiB</span></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <script>
-    const emojis = ["🤓", "🙂", "🤔"];
-    document.querySelector("#loader span").textContent =
-      emojis[Math.floor(Math.random() * emojis.length)];
-
-    window.onload = () => {
-      setTimeout(() => {
-        document.getElementById("loader").style.display = "none";
-        document.getElementById("content").style.display = "flex";
-      }, 1500);
-    };
-
-    function updateTime() {
-      let now = new Date();
-      let options = { timeZone: "Asia/Vladivostok", hour: "2-digit", minute: "2-digit", second: "2-digit" };
-      let timeString = new Intl.DateTimeFormat("ru-RU", options).format(now);
-      document.getElementById("time").textContent = timeString;
-    }
-    setInterval(updateTime, 1000);
-    updateTime();
-
-    function copyUsername() {
-      navigator.clipboard.writeText("bloggervatk").then(() => {
-        alert("Ник скопирован!");
-      });
-    }
-
-    // Функция для расчета времени с 21 августа
-    function calculateLinuxTime() {
-      const startDate = new Date('2025-08-21'); // Дата начала использования Linux
-      const currentDate = new Date();
-      
-      // Вычисляем разницу в миллисекундах
-      const diffTime = Math.abs(currentDate - startDate);
-      
-      // Переводим миллисекунды в дни, часы, минуты и секунды
-      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-      const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
-      const diffSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
-      
-      let timeString = `Use Linux: ${diffDays} days`;
-
-      document.getElementById("linux-time").textContent = timeString + " 💻";
-    }
-    
-    calculateLinuxTime();
-    setInterval(calculateLinuxTime, 1000);
-  </script>
+    </section>
+    <section class="section" id="computer"><h2 class="section-title">// мой компьютер</h2>
+      <div class="fetch windows" aria-label="Характеристики компьютера">
+        <div class="fetch-bar"><span>terminal — fastfetch</span><span>bloggeervat@windows-pc</span></div>
+        <div class="fetch-body">
+          <div class="windows-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div><div class="fetch-host">bloggeervat@windows-pc</div><div class="fetch-rule">------------------</div>
+            <div class="fetch-rows">
+              <div class="fetch-row"><span class="fetch-key">os ♡</span><span class="fetch-value">Windows 11</span></div>
+              <div class="fetch-row"><span class="fetch-key">cpu ♡</span><span class="fetch-value">Intel Core i5-10400F</span></div>
+              <div class="fetch-row"><span class="fetch-key">gpu ♡</span><span class="fetch-value">AMD Radeon RX 6600</span></div>
+              <div class="fetch-row"><span class="fetch-key">ram ♡</span><span class="fetch-value">16 GB</span></div>
+              <div class="fetch-row"><span class="fetch-key">disk ♡</span><span class="fetch-value">SSD 550 GB</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="phones"><h2 class="section-title">// мои устройства</h2>
+      <div class="projects">
+        <div class="fetch apple" aria-label="Характеристики iPhone 13">
+          <div class="fetch-bar"><span>terminal — fastfetch <b class="device-main-banner">main</b></span><span>bloggeervat@iphone-13</span></div>
+          <div class="fetch-body">
+            <div class="device-icon" aria-hidden="true"></div>
+            <div><div class="fetch-host">bloggeervat@iphone-13</div><div class="fetch-rule">------------------</div>
+              <div class="fetch-rows">
+                <div class="fetch-row"><span class="fetch-key">model ♡</span><span class="fetch-value">iPhone 13</span></div>
+                <div class="fetch-row"><span class="fetch-key">chip ♡</span><span class="fetch-value">Apple A15 Bionic</span></div>
+                <div class="fetch-row"><span class="fetch-key">display ♡</span><span class="fetch-value">6.1″ Super Retina XDR OLED</span></div>
+                <div class="fetch-row"><span class="fetch-key">camera ♡</span><span class="fetch-value">12 MP + 12 MP, rear · 12 MP front</span></div>
+                <div class="fetch-row"><span class="fetch-key">network ♡</span><span class="fetch-value">5G · Face ID</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fetch" aria-label="Характеристики Huawei Y7">
+          <div class="fetch-bar"><span>terminal — fastfetch</span><span>bloggeervat@huawei-y7</span></div>
+          <div class="fetch-body">
+            <div class="device-icon" aria-hidden="true">H</div>
+            <div><div class="fetch-host">bloggeervat@huawei-y7</div><div class="fetch-rule">------------------</div>
+              <div class="fetch-rows">
+                <div class="fetch-row"><span class="fetch-key">model ♡</span><span class="fetch-value">Huawei Y7 2019</span></div>
+                <div class="fetch-row"><span class="fetch-key">chip ♡</span><span class="fetch-value">Qualcomm Snapdragon 450</span></div>
+                <div class="fetch-row"><span class="fetch-key">display ♡</span><span class="fetch-value">6.26″ HD+ · 1520 × 720</span></div>
+                <div class="fetch-row"><span class="fetch-key">camera ♡</span><span class="fetch-value">13 MP + 2 MP rear · 8 MP front</span></div>
+                <div class="fetch-row"><span class="fetch-key">battery ♡</span><span class="fetch-value">4000 mAh</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fetch" aria-label="Характеристики Samsung Galaxy Watch7">
+          <div class="fetch-bar"><span>terminal — fastfetch</span><span>bloggeervat@galaxy-watch7</span></div>
+          <div class="fetch-body">
+            <div class="watch-icon" aria-hidden="true">7</div>
+            <div><div class="fetch-host">bloggeervat@galaxy-watch7</div><div class="fetch-rule">------------------</div>
+              <div class="fetch-rows">
+                <div class="fetch-row"><span class="fetch-key">model ♡</span><span class="fetch-value">Samsung Galaxy Watch7</span></div>
+                <div class="fetch-row"><span class="fetch-key">chip ♡</span><span class="fetch-value">Exynos W1000 · 3 nm</span></div>
+                <div class="fetch-row"><span class="fetch-key">display ♡</span><span class="fetch-value">Super AMOLED · 40 / 44 mm</span></div>
+                <div class="fetch-row"><span class="fetch-key">memory ♡</span><span class="fetch-value">2 GB RAM · 32 GB storage</span></div>
+                <div class="fetch-row"><span class="fetch-key">battery ♡</span><span class="fetch-value">300 / 425 mAh · 40 / 44 mm</span></div>
+                <div class="fetch-row"><span class="fetch-key">system ♡</span><span class="fetch-value">Wear OS 5 · One UI 6 Watch</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="projects"><h2 class="section-title">// мои проекты</h2>
+      <div class="projects">
+        <article class="project"><div><h3>Discord Bot — Aila</h3><p>Мой первый проект на Python: около 2&nbsp;000 строк кода в одном файле — ну а что вы хотели? Начал в феврале 2021 года, закрыл в июле 2022-го: код стал таким монолитом, что переписать его с нуля оказалось проще, чем поддерживать.</p></div><div class="badges"><span class="badge lang">Python</span><span class="badge">2021–2022 · архив</span></div></article>
+        <article class="project"><div><h3>BGDPS — Bloggervat Geometry Dash Private Server</h3><p>Проект с большой историей, сотнями игроков и десятками перезапусков. Он просуществовал примерно с 2019 по 2022 год. Сначала сервер назывался Bollchik GDPS, но после того, как права на проект перешли ко мне, я поддерживал его вместе с несколькими другими людьми. Вот бы вернуть то время…</p></div><div class="badges"><span class="badge">2019–2022 · архив</span><span class="badge lang">PHP 70.1%</span><span class="badge lang">SCSS 14.9%</span><span class="badge lang">Less 14.7%</span><span class="badge lang">Other 0.3%</span></div></article>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap"><span>42.</span><span>designed by codex.</span></div></footer>
+  <script src="main.js" defer></script>
 </body>
 </html>
